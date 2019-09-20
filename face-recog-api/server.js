@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const cors = require('cors')
+const cors = require('cors');
 
 const saltRounds = 10;
-const checkUserPassword = (enteredPassword, storedPasswordHash) =>  
-  bcrypt.compare(enteredPassword, storedPasswordHash)
+const checkUserPassword = (enteredPassword, storedPasswordHash) =>
+  bcrypt.compare(enteredPassword, storedPasswordHash);
 
 const app = express();
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
     count: 100,
@@ -17,11 +17,11 @@ const database = {
     ],
     login: [
     ]
-}
+};
 
 app.get('/', (req, res) => {
     res.send(database.users)
-})
+});
 
 app.post('/signin', (req, res) => {
     const { email, password } = req.body;
@@ -31,17 +31,17 @@ app.post('/signin', (req, res) => {
             found = true;
             return user;
         }
-    })
+    });
     if(!found) {
         res.status(404).json('Error loggin in')
     } else {
         if (checkUserPassword(password, logUser.hash)) {
-                res.json('Success')
+                res.json(database.users[0])
         } else {
             res.status(404).json('Error loggin in')
         }
     }
-})
+});
 
 app.post('/register', (req,res) => {
     const {email, name, password} = req.body;
@@ -55,16 +55,16 @@ app.post('/register', (req,res) => {
         email: email,
         entries: 0,
         joined: new Date()
-    }),
+    });
     setTimeout(() => {
         database.login.push({
             id: database.count * 9,
             hash: hashed,
             email: email
         })
-    }, 100)
+    }, 100);
     res.json(database.users[database.users.length - 1]);
-})
+});
 
 app.get('/profile/:id', (req, res) => {
     const { id } = req.params;
@@ -78,7 +78,7 @@ app.get('/profile/:id', (req, res) => {
     if(!found) {
         res.status(400).json('No such user')
     }
-})
+});
 
 app.put('/image', (req, res) => {
     const { id } = req.body;
@@ -93,11 +93,11 @@ app.put('/image', (req, res) => {
     if(!found) {
         res.status(400).json('No such user')
     }
-})
+});
 
 app.listen(3000, () => {
     console.log('app is running on port 3000')
-})
+});
 
 /*
 / --> res = this is working

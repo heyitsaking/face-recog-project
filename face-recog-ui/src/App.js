@@ -50,6 +50,7 @@ const particleOptions = {
   },
   retina_detect: true
 }
+
 class App extends Component {
   constructor() {
     super();
@@ -59,12 +60,31 @@ class App extends Component {
       boxes: [],
       route: 'signin',
       isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: '',
+      }
     }
   }
 
   onInputChange = (event) => {
     this.setState({input: event.target.value});
-  }
+  };
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      }
+    })
+  };
 
   calculateFaceLocation = (data) => {
     const image = document.getElementById('inputImage');
@@ -92,7 +112,7 @@ class App extends Component {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then((response) => { this.displayFaceBox(this.calculateFaceLocation(response)) })
     .catch(err  => { console.log(err) })
-  }; 
+  };
 
   onRouteChange = (route) => {
     if(route === 'signout') {
@@ -118,12 +138,12 @@ class App extends Component {
             </div>
         : (
           route === 'register'
-          ? <Register onRouteChange={this.onRouteChange}/>
+          ? <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
           : <Signin onRouteChange={this.onRouteChange}/>
           )
         }
       </div>
-    ) 
+    )
   };
 }
 

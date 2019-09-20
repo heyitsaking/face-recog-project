@@ -1,7 +1,6 @@
 import React from 'react';
 import './Rank.css'
 
-
 const Rank = () => {
     return (
         <div className='rank-card center dib pa3 ma4 mt0 shadow-3 w-30'>

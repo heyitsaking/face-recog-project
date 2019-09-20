@@ -2,22 +2,22 @@ import React from 'react';
 
 class Signin extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state ={
             signInEmail: '',
             signInPassword: ''
         }
     }
-    
+
     onEmailChange = (event) => {
         this.setState({signInEmail: event.target.value})
-    }
+    };
 
     onPasswordChange = (event) => {
         this.setState({signInPassword: event.target.value})
-    }
+    };
 
-    onSumbitSignIn = () => {
+    onSubmitSignIn = () => {
         fetch('http://localhost:3000/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -28,12 +28,12 @@ class Signin extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            if (data === 'Success') {
+            console.log(data);
+            if (data) {
                 this.props.onRouteChange('home')
-            } 
+            }
         })
-    }
+    };
 
     render() {
         const { onRouteChange } = this.props;
@@ -45,9 +45,9 @@ class Signin extends React.Component {
                             <legend className="f1 fw6 ph0 mh0">Sign In</legend>
                             <div className="mt3">
                                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                                <input 
-                                className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-                                type="email" 
+                                <input
+                                className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                                type="email"
                                 name="email-address"
                                 id="email-address"
                                 onChange={this.onEmailChange}/>
@@ -63,14 +63,16 @@ class Signin extends React.Component {
                             </div>
                         </fieldset>
                         <div className="">
-                            <input 
-                            onClick={this.onSumbitSignIn}
-                            className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
-                            type="submit" 
+                            <input
+                            onClick={this.onSubmitSignIn}
+                            className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                            type="submit"
                             value="Sign in"/>
                         </div>
                         <div className="lh-copy mt3">
-                            <p onClick={() => onRouteChange('register')} className="pointer f6 w-60 center shadow-5 pa2 link dim black db">Register</p>
+                            <p
+                                onClick={() => onRouteChange('register')}
+                                className="pointer f6 w-60 center shadow-5 pa2 link dim black db">Register</p>
                         </div>
                     </div>
                 </main>
