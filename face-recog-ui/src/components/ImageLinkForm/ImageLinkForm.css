@@ -1,0 +1,14 @@
+.form {
+    width: 700px;
+    background:
+    radial-gradient(circle at 100% 50%, transparent 20%, #92EEAB 21%, #92EEAB 34%, transparent 35%, transparent),
+    radial-gradient(circle at 0% 50%, transparent 20%, #92EEAB 21%, #92EEAB 34%, transparent 35%, transparent) 0 -50px;
+    background-color: #90D5E5;
+    background-size:75px 100px;
+}
+
+.detect-button {
+    background: #FFA89D;
+    color: black !important;
+    text-transform: uppercase
+}
