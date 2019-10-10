@@ -33,12 +33,20 @@ app.post('/signin', (req, res) => {
         }
     });
     if(!found) {
-        res.status(404).json('Error loggin in')
+        res.status(404).json('Error logging in')
     } else {
         if (checkUserPassword(password, logUser.hash)) {
-                res.json(database.users[0])
+            let userInfo = database.users.map(user => {
+                if (user.email === email) {
+                    found = true;
+                    return user;
+                }
+            })
+            if (userInfo) {
+                res.json(userInfo[0])
+            }
         } else {
-            res.status(404).json('Error loggin in')
+            res.status(404).json('Error logging in')
         }
     }
 });
