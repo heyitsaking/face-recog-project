@@ -5,7 +5,7 @@ body {
     "Helvetica Neue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to right, #BFF9CE, #C4CFF7);
+  background: #DCDBDB;
 }
 
 button {
