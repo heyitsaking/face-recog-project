@@ -1,3 +1,18 @@
+const Clarifai = require('clarifai');
+
+const app = new Clarifai.App({
+    apiKey: 'bc18bdfbb9954cc48629d520e7e48a6e'
+});
+
+const handleApiCall = (req, res) => {
+    app.models
+        .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+        .then(data => {
+            res.json(data)
+        })
+        .catch(err => res.status(400).json('unable to get data'))
+}
+
 const handleImage = (req, res, postgres) => {
     const { id } = req.body;
     postgres('users')
@@ -11,5 +26,6 @@ const handleImage = (req, res, postgres) => {
 };
 
 module.exports = {
-    handleImage: handleImage
+    handleImage: handleImage,
+    handleApiCall: handleApiCall
 }
